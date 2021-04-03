@@ -49,10 +49,56 @@
     -->
   </body>
   <script>
-    var swiper = new Swiper('.swiper-container', {
+    var swiper1 = new Swiper('.new-product_list', {
       slidesPerView: 6,
       spaceBetween: 30,
       slidesPerGroup: 6,
+      loop: false,
+      loopFillGroupWithBlank: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+    var swiper2 = new Swiper('.watch-for-man_list', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      slidesPerGroup: 3,
+      loop: false,
+      loopFillGroupWithBlank: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+    var swiper3 = new Swiper('.watch-for-woman_list', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      slidesPerGroup: 3,
+      loop: false,
+      loopFillGroupWithBlank: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+    
+    var swiper4 = new Swiper('.best-equipment_list', {
+      slidesPerView: 5,
+      spaceBetween: 50,
+      slidesPerGroup: 5,
       loop: false,
       loopFillGroupWithBlank: false,
       pagination: {
