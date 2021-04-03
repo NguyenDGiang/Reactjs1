@@ -11,23 +11,40 @@
         display: flex;
         width: 70%;
         justify-content: space-between;
-
         li {
-
+            .active{
+                a{
+                    color: #05c3ff;
+                }
+                
+            }
             padding: 0.75rem 0;
-            
+            &:nth-child(2){
+                .fa-angle-down{
+                    position: absolute;
+                    top: 14px;
+                    left: 520px;
+                }
+            }
+            &:nth-child(3){
+                .fa-angle-down{
+                    position: absolute;
+                    top: 14px;
+                    left: 105px;
+                }
+            }
             a {
                 color: #000;
                 font-size: 14px;
                 font-weight: bold;
                 text-transform: uppercase;
             }
-
-            &:hover {                
-                & > a, & > a > i {
-                    color: #05c3ff;
-                    text-decoration: none;
-                }
+            div
+                &:hover {                
+                    a, & > a > i {
+                        color: #05c3ff;
+                        text-decoration: none;
+                    }
 
                 .menu-product-drop-down , .dropdown-menu{ 
                     opacity: 1;
@@ -93,7 +110,9 @@
                                     color: #05c3ff;
                                 }
                             }
-                        }
+                            
+                                
+                            }
                     }
 
                     &:last-child {
