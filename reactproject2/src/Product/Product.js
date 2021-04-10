@@ -1,6 +1,66 @@
+import { useState,useEffect } from 'react';
 import Header from '../Components/Header';
 import NavBar from '../Components/NavBar';
+import Pagination from './Pagination';
+import ProductContent from './ProductContent';
+
 function Product() {
+  const [sanPham,setSanPham] = useState([]);
+  const [currentPage,setCurrentPage]=useState(1);
+  const [postPerPage,setPostPerPage] = useState(5);
+  const [activePage,setActivePage] = useState(1);
+  useEffect(() => {
+    fetch("https://localhost:44318/api/SanPham/GetAll")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setSanPham(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          
+        }
+      )
+  }, [])
+
+  function paginate(value){
+    setCurrentPage(value);
+    setActivePage(value);
+    
+  }
+  function pageNext(){
+    if(currentPage == Math.ceil(sanPham.length/postPerPage)){
+      setActivePage(1);
+     setCurrentPage(1);
+    }
+    else{
+      setActivePage(currentPage+1);
+    setCurrentPage(currentPage+1);
+    }
+    
+  }
+  function pagePrev(){
+    if(currentPage <=1){
+      setActivePage(Math.ceil(sanPham.length/postPerPage));
+      setCurrentPage(Math.ceil(sanPham.length/postPerPage));
+    }
+    else{
+      setActivePage(currentPage-1);
+    setCurrentPage(currentPage-1);
+    }
+  }
+
+
+  
+
+
+  const indexLast = currentPage*postPerPage;
+  const indexFirst = indexLast - postPerPage;
+  const currentPost = sanPham.slice(indexFirst,indexLast);
+  const countPage = Math.ceil(sanPham.length/postPerPage);
+
   return (
     <div>
   
@@ -303,368 +363,9 @@ function Product() {
                     </ul>
                   </div>
                 </div>
-                <div className="content_main-right col-xl-9 col-lg-9">
-                  <div className="ads row mb-3">
-                    <div className="col-xl-6 col-lg-6 col-sm-6">
-                      <img src="./images/content/product/ads/banner1.jpg" alt="" width="100%" />
-                    </div>
-                    <div className="col-xl-6 col-lg-6 col-sm-6">
-                      <img src="./images/content/product/ads/banner2.jpg" alt="" width="100%" />
-                    </div>
-                  </div>
-                  <div className="sort row justify-content-between">
-                    <div className="col-xl-8 col-lg-8 col-sm-8 col-12">
-                      <h4 style={{fontWeight: 'normal'}}>Tất cả sản phẩm</h4>
-                    </div>
-                    <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
-                      <div className="d-flex justify-content-end align-items-baseline">
-                        <p>Sắp xếp:</p>
-                        <div className="current-sort-option">
-                          Thứ tự
-                          <i className="fa fa-angle-down ml-2" />
-                          <ul>
-                            <li>
-                              <input type="radio" name="sort-option" id="sort-default" />
-                              <label htmlFor="sort-default">Mặc định</label>
-                            </li>
-                            <li>
-                              <input type="radio" name="sort-option" id="sort-AZ" />
-                              <label htmlFor="sort-AZ">A → Z</label>
-                            </li>
-                            <li>
-                              <input type="radio" name="sort-option" id="sort-ZA" />
-                              <label htmlFor="sort-ZA">Z → A</label>
-                            </li>
-                            <li>
-                              <input type="radio" name="sort-option" id="sort-priceUp" />
-                              <label htmlFor="sort-priceUp">Giá tăng dần</label>
-                            </li>
-                            <li>
-                              <input type="radio" name="sort-option" id="sort-priceDown" />
-                              <label htmlFor="sort-priceDown">Giá giảm dần</label>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="list-product">
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product/list-product/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="pagination">
-                  <div className="pagination-prev">
-                    <i className="fa fa-angle-left" />
-                  </div>
-                  <div className="page page-active">
-                    1
-                  </div>
-                  <div className="page">
-                    2
-                  </div>
-                  <div className="pagination-next">
-                    <i className="fa fa-angle-right" />
-                  </div>
-                </div>
+                {/* product content*/}
+                <ProductContent sanPham = {currentPost}/>
+                <Pagination countPage={countPage} paginate={paginate} activePage={activePage} currentPage={currentPage} pageNext={pageNext} pagePrev={pagePrev}/>
                 <div className="ads-last mt-5" style={{display: 'none'}}>
                   <div className="col-sm-6 pl-0">
                     <img src="./images/content/product/ads/banner1.jpg" alt="" width="100%" />

@@ -5,14 +5,11 @@ import './Sass/product.scss';
 import './Sass/header.scss';
 import './Sass/nav-bar.scss';
 import './Css/bootstrap.css';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import TrangChu from './TrangChu/TrangChu.js';
+import './Sass/login.scss';
+
 import Header from './Components/Header';
 import NavBar from './Components/NavBar';
-import DiaChiCuaHang from './DiaChiCuaHang/DiaChiCuaHang.js';
-import TinTuc from './TinTuc/TinTuc.js';
-import SmartWatch from './SmartWatch/SmartWatch.js';
-import VeChungToi from './VeChungToi/VeChungToi.js';
+
 import routes from './Components/routes';
 import React from "react";
 import {
@@ -21,11 +18,19 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import { useState } from 'react/cjs/react.development';
+import {CartProvider} from './Contexts/CartProvider';
 
 
 function App() {
+
+  const [cart,setCart] = useState([]);
+
+
+
+
   return (
+    <CartProvider>
     <div className="App">
       {/* MASK */}
       <div className="mask"> </div>
@@ -36,10 +41,11 @@ function App() {
           <span className="notification-sale_code">Deltafree</span>&nbsp;
           <a href="#" className="notification-sale_link">Chi tiết</a>
         </div>
+        <Router>
         {/* HEADER */}
         <Header/>
         {/* NAV BAR */}
-        <Router>
+        
         <NavBar/>
         
         <Switch>
@@ -209,6 +215,7 @@ function App() {
           <i className="fas fa-angle-up" />
         </div>
     </div>
+    </CartProvider>
   );
 }
 

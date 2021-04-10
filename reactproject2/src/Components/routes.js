@@ -4,6 +4,8 @@ import SmartWatch from '../SmartWatch/SmartWatch.js';
 import VeChungToi from '../VeChungToi/VeChungToi.js';
 import TrangChu from '../TrangChu/TrangChu.js';
 import Product from '../Product/Product.js';
+import Login from '../Auth/Login.js';
+import Register from '../Auth/Register';
 const routes =[
     {
         exact:true,
@@ -34,6 +36,16 @@ const routes =[
         exact:false,
         path:"/dia-chi-cua-hang",
         main:()=><DiaChiCuaHang/>
+    },
+    {
+        exact:false,
+        path:"/login",
+        main:()=><Login/>
+    },
+    {
+        exact:false,
+        path:"/register",
+        main:()=><Register/>
     }
 
 

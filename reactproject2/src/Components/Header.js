@@ -1,3 +1,12 @@
+import OldSchoolMenuLink from './OldSchoolMenuLink';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 function Header(){
     return (
         <div>
@@ -8,8 +17,8 @@ function Header(){
                             <div className="account">
                                 <span><i class="far fa-user-circle"></i>&nbsp;Tài khoản</span>
                                 <ul className="header_sub-menu">
-                                <li><a href="#">Đăng nhập</a></li>
-                                <li><a href="#">Đăng ký</a></li>
+                                <li><OldSchoolMenuLink to="/login" activeOnlyWhenExact={false} label="Đăng Nhập"/></li>
+                                <li><OldSchoolMenuLink to="/register" activeOnlyWhenExact={false} label="Đăng Ký"/></li>
                                 </ul>
                             </div>
                             <div className="call">
@@ -19,9 +28,9 @@ function Header(){
                             </div>
                         </div>
                         <div className="header_logo">
-                        <a href="#">
+                        <Link to="/">
                             <img src="./images/header/logo.png" alt="" width="100%" />
-                        </a>
+                        </Link>
                         </div>
                         <div className="header_search">
                         <ul>
