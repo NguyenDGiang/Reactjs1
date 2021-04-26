@@ -6,6 +6,9 @@ import TrangChu from '../TrangChu/TrangChu.js';
 import Product from '../Product/Product.js';
 import Login from '../Auth/Login.js';
 import Register from '../Auth/Register';
+import SanPhamDanhMuc from '../SanPhamDanhMucs/SanPhamDanhMuc';
+import GioHang from '../GioHang/GioHang';
+import ChiTietSanPham from '../ChiTietSanPham/ChiTietSanPham';
 const routes =[
     {
         exact:true,
@@ -46,8 +49,17 @@ const routes =[
         exact:false,
         path:"/register",
         main:()=><Register/>
+    },
+    {
+        exact:false,
+        path:"/giohang",
+        main:()=><GioHang/>
+    },
+    {
+        exact:false,
+        path:"/chitietsanpham",
+        main:()=><ChiTietSanPham/>
     }
-
 
 ];
 export default routes;

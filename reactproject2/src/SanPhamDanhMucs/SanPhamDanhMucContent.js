@@ -2,13 +2,14 @@ import { useContext} from 'react';
 import React from "react";
 
 import {CartContext} from '../Contexts/CartProvider';
-function ProductContent(props){
+function SanPhamDanhMucContent(props){
     const context = useContext(CartContext);
     function addCart(el){
       
       context.addCart(el);
 
     }
+  
     return(
       
       
@@ -62,7 +63,7 @@ function ProductContent(props){
                         return (
                             <div className="product_item">
                                 <div className="item_image">
-                                    <img src={`./images/content/product/list-product/${value.anh}`} width="90%" alt="" />
+                                    <img src={`../images/content/product/list-product/${value.anh}`} width="90%" alt="" />
                                     <div className="item_image_mask">
                                     <div className="animation3d">
                                         <div>
@@ -90,4 +91,4 @@ function ProductContent(props){
     );
 }
 
-export default ProductContent;
+export default SanPhamDanhMucContent;

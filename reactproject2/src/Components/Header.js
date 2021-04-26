@@ -7,7 +7,21 @@ import {
   Link,
   useRouteMatch
 } from "react-router-dom";
-function Header(){
+import { useContext} from 'react';
+import {CartContext} from '../Contexts/CartProvider';
+function Header(props){
+    const context = useContext(CartContext);
+    function  addQualities(params) {
+        context.addQuality(params);
+    }
+    function  addGiamQualities(params) {
+        context.addGiamQuality(params);
+    }
+    function  deleteCart(params) {
+       
+        context.deleteCart(params);
+        
+    }
     return (
         <div>
             <div className="header">
@@ -43,10 +57,38 @@ function Header(){
                             </li>
                             <span style={{fontWeight: 'normal', color: '#ebebeb', fontSize: '18px', marginTop: '-5px'}}>|</span>
                             <li>
-                            <span><i class="fas fa-shopping-basket"></i>Giỏ hàng (0)</span>
-                            <ul className="header_sub-menu">
-                                <li><p>Không có sản phẩm nào.</p></li>
-                            </ul>
+                            <span><i class="fas fa-shopping-basket"></i>Giỏ hàng ({context.cart.reduce(function (accumulator, currentValue) {
+  return accumulator + currentValue.quality;
+}, 0)})</span>
+                            <ul className="cart header_sub-menu">
+                            {context.cart.map((e)=>{console.log(e.quality);
+                                 return(
+                                 <li className="cart_item">
+          <div className="cart_item_image">
+            <img src={`../images/header/${e.anh}`}alt="" width="100%" />
+          </div>
+          <div className="cart_item_info">
+            <a href="#" className="name">{e.tenSP} </a>
+            <p className="price">{e.quality*e.gia}</p>
+            <div className="quantity">
+              <button type="button" onClick={()=>addQualities(e)}>
+                +
+              </button>
+              <input type="number" value={e.quality} id="quantity1" />
+              <button type="button" onClick={()=>addGiamQualities(e)}>
+                -
+              </button>
+            </div>
+          </div>
+          <i className="fas fa-times" onClick={()=>deleteCart(e)}/>
+        </li>);
+                             })}
+        
+        
+        <Link to="/giohang">
+          <i className="fas fa-shopping-basket" />Tới giỏ hàng và thanh toán
+        </Link>
+      </ul>
                             </li>
                         </ul>
                         </div>

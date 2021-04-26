@@ -1,0 +1,31 @@
+.copyright {
+  padding: 1rem 0;
+  background-color: #212529;
+}
+
+.copyright span {
+  font-size: 14px;
+  color: #fff;
+}
+
+.copyright span a {
+  color: #34b1e2;
+}
+
+.copyright span a:hover {
+  text-decoration: none;
+  color: #05c3ff;
+}
+
+@media only screen and (max-width: 425px) {
+  .copyright {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .copyright {
+    padding: 1rem 1.5rem;
+  }
+}
+/*# sourceMappingURL=copyright.css.map */

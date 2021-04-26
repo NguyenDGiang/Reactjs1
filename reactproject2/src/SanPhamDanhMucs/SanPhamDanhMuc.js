@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
 import Header from '../Components/Header';
 import NavBar from '../Components/NavBar';
-import Pagination from './Pagination';
-import ProductContent from './ProductContent';
+import Pagination from '../Product/Pagination';
+import ProductContent from '../Product/ProductContent';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -11,38 +11,24 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+import SanPhamDanhMucContent from './SanPhamDanhMucContent';
 
-function Product(props) {
-  const [sanPham,setSanPham] = useState([]);
+function SanPhamDanhMuc(props) {
+  
   const [currentPage,setCurrentPage]=useState(1);
   const [postPerPage,setPostPerPage] = useState(5);
   const [activePage,setActivePage] = useState(1);
   let { slug } = useParams();
-  console.log(slug);
-  useEffect(() => {
-    fetch("https://localhost:44318/api/SanPham/GetAll")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setSanPham(result);
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          
-        }
-      )
-  }, [])
+  
+   
 
-  //console.log(sanPham);
   function paginate(value){
     setCurrentPage(value);
     setActivePage(value);
     
   }
   function pageNext(){
-    if(currentPage == Math.ceil(sanPham.length/postPerPage)){
+    if(currentPage == Math.ceil(props.sanPham.length/postPerPage)){
       setActivePage(1);
      setCurrentPage(1);
     }
@@ -54,8 +40,8 @@ function Product(props) {
   }
   function pagePrev(){
     if(currentPage <=1){
-      setActivePage(Math.ceil(sanPham.length/postPerPage));
-      setCurrentPage(Math.ceil(sanPham.length/postPerPage));
+      setActivePage(Math.ceil(props.sanPham.length/postPerPage));
+      setCurrentPage(Math.ceil(props.sanPham.length/postPerPage));
     }
     else{
       setActivePage(currentPage-1);
@@ -69,8 +55,8 @@ function Product(props) {
 
   const indexLast = currentPage*postPerPage;
   const indexFirst = indexLast - postPerPage;
-  const currentPost = sanPham.slice(indexFirst,indexLast);
-  const countPage = Math.ceil(sanPham.length/postPerPage);
+  const currentPost = props.sanPham.slice(indexFirst,indexLast);
+  const countPage = Math.ceil(props.sanPham.length/postPerPage);
 
   return (
     <div>
@@ -375,7 +361,7 @@ function Product(props) {
                   </div>
                 </div>
                 {/* product content*/}
-                <ProductContent sanPham = {currentPost}/>
+                <SanPhamDanhMucContent sanPham = {currentPost}/>
                 <Pagination countPage={countPage} paginate={paginate} activePage={activePage} currentPage={currentPage} pageNext={pageNext} pagePrev={pagePrev}/>
                 <div className="ads-last mt-5" style={{display: 'none'}}>
                   <div className="col-sm-6 pl-0">
@@ -393,4 +379,4 @@ function Product(props) {
     );
 }
 
-export default Product;
+export default SanPhamDanhMuc;

@@ -5,9 +5,32 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch
+  useRouteMatch,
+  useParams
 } from "react-router-dom";
-function NavBar(){
+import { useState,useEffect } from 'react';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+function NavBar(props){
+    const [menu,setMenu] = useState([]);
+    
+    useEffect(() => {
+        fetch("https://localhost:44318/api/DanhMuc/GetAll")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              setMenu(result);
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+              
+            }
+          )
+      }, [])
+      function  SPCall(params) {
+          props.listSP(params);
+      }
     return (
 
         <div className="nav-bar">
@@ -28,130 +51,32 @@ function NavBar(){
                             <div className="menu-product-drop-down">
                             <div className="container">
                                 <div className="row">
-                                <div className="col-xl-3 col-lg-3">
-                                    <ul className="pl-0">
+                                
+                                    {menu.map((e)=>{
+                                        return (
+                                        <div className="col-xl-3 col-lg-3">
+                                            <ul className="pl-0">
+                                    
                                     <h3>
-                                        <a href="/dong-ho-nam" title="Đồng hồ nam">Đồng hồ nam</a>
+                                        <a href="/dong-ho-nam" title="Đồng hồ nam">{e.tenTL}</a>
                                     </h3>
-                                    <li>
+                                    {
+                                                e.menuSub.map(value => <li>
                                         <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Philips">Đồng hồ Philips</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Epos swiss">Đồng hồ Epos swiss</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Eries gold">Đồng hồ Eries gold</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Citizen">Đồng hồ Citizen</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Tourbillon">Đồng hồ Tourbillon</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Du manoir">Đồng hồ Du manoir</a> 
-                                    </li>
+                                        <Link to={`/danhmuc/${value.slug}`} title="Đồng hồ Philips" onClick ={()=>SPCall(value.slug)}>
+                                            {value.tenLoaiSP}
+                                        </Link> 
+                                    </li>)
+                                           
+                                           }
+                                    
+                                    
                                     </ul>
-                                </div>
-                                <div className="col-xl-3 col-lg-3">
-                                    <ul className="pl-0">
-                                    <h3>
-                                        <a href="/dong-ho-nam" title="Đồng hồ nam">Đồng hồ nam</a>
-                                    </h3>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Philips">Đồng hồ Philips</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Epos swiss">Đồng hồ Epos swiss</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Eries gold">Đồng hồ Eries gold</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Citizen">Đồng hồ Citizen</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Tourbillon">Đồng hồ Tourbillon</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Du manoir">Đồng hồ Du manoir</a> 
-                                    </li>
-                                    </ul>
-                                </div>
-                                <div className="col-xl-3 col-lg-3">
-                                    <ul className="pl-0">
-                                    <h3>
-                                        <a href="/dong-ho-nam" title="Đồng hồ nam">Đồng hồ nam</a>
-                                    </h3>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Philips">Đồng hồ Philips</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Epos swiss">Đồng hồ Epos swiss</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Eries gold">Đồng hồ Eries gold</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Citizen">Đồng hồ Citizen</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Tourbillon">Đồng hồ Tourbillon</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Du manoir">Đồng hồ Du manoir</a> 
-                                    </li>
-                                    </ul>
-                                </div>
-                                <div className="col-xl-3 col-lg-3">
-                                    <ul className="pl-0">
-                                    <h3>
-                                        <a href="/dong-ho-nam" title="Đồng hồ nam">Đồng hồ nam</a>
-                                    </h3>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Philips">Đồng hồ Philips</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Epos swiss">Đồng hồ Epos swiss</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Eries gold">Đồng hồ Eries gold</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Citizen">Đồng hồ Citizen</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Tourbillon">Đồng hồ Tourbillon</a> 
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-angle-right" /> 
-                                        <a href="#" title="Đồng hồ Du manoir">Đồng hồ Du manoir</a> 
-                                    </li>
-                                </ul>
-                            </div>
+                                   </div>
+                                        );
+                                    })}
+                                
+                                
                             </div>
                         </div>
                         </div>

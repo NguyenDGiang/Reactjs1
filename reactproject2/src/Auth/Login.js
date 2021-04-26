@@ -1,4 +1,35 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { withRouter } from "react-router-dom";
+import { Redirect } from 'react-router';
+import { useHistory } from "react-router";
 function Login(){
+  const [data, setdata] = useState({ Email: '', Password: ''}) 
+  const [error, setError] = useState([]);
+  const apiUrl = "https://localhost:44318/api/Account/Login";   
+  const onChange = (e)=> {    
+      
+      setdata({...data, [e.target.name]: e.target.value});  
+      
+    }  
+    let history = useHistory();
+    function DangNhap(e) {
+      e.preventDefault(); 
+    axios.post(apiUrl, { email: data.Email, password: data.Password})  
+      .then((result) => {  
+        
+        if(result.data.user!=null){
+          alert(`chúc mừng  ${result.data.user.userName } đăng nhập thành công`);
+          history.push("/"); 
+        }
+        alert(result.data);
+         
+        
+      }) 
+      
+    }
+    console.log(data);
+ console.log(error);
     return (
         <div>
         {/* BREADCRUMB */}
@@ -19,9 +50,9 @@ function Login(){
                 <form>
                   <h4>Đăng nhập</h4>
                   <p>Nếu bạn chưa có tài khoản,&nbsp;<a href="#">đăng ký tại đây</a></p>
-                  <input type="email" placeholder="Email" className="form-control" />
-                  <input type="password" placeholder="Password" className="form-control" />
-                  <button>Đăng nhập</button>
+                  <input type="email" placeholder="Email" name ="Email" defaultValue = {data.Email} className="form-control" onChange={onChange}/>
+                  <input type="password" placeholder="Password" name = "Password" defaultValue={data.Password} className="form-control" onChange={onChange}/>
+                  <button onClick = {DangNhap}>Đăng nhập</button>
                 </form>
                 <a href="#" className="forget">Quên mật khẩu</a>
                 <p>Hoặc đăng nhập bằng</p>
