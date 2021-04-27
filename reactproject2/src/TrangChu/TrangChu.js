@@ -7,7 +7,7 @@ import SanPhamNam from './SanPhamNam';
 import SanPhamNu from './SanPhamNu';
 import SanPhamNoiBat from './SanPhamNoiBat';
 
-function TrangChu(){
+function TrangChu(props){
    
     return (
         <div>
@@ -63,7 +63,7 @@ function TrangChu(){
               </div>
             </div>
 
-            <SanPhamMoi/>
+            <SanPhamMoi />
           </div>
 
 

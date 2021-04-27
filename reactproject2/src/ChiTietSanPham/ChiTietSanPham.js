@@ -1,5 +1,56 @@
-import '../Sass/chitiet.scss';
-function ChiTietSanPham(){
+import '../Sass/spct.scss';
+import { useContext} from 'react';
+import '../Css/bootstrap.css';
+import {CartContext} from '../Contexts/CartProvider';
+import Swiper from 'swiper';
+import {useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+import { useState } from 'react/cjs/react.development';
+function ChiTietSanPham(props){
+  useEffect(() => {
+    var swiper4 = new Swiper('.relate-product_list', {
+        slidesPerView: 5,
+        spaceBetween: 50,
+        slidesPerGroup: 5,
+        loop: false,
+        loopFillGroupWithBlank: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    
+    })
+ console.log(props.match.params.slug);
+ const [qualitySPs,setQualitySPs] = useState();
+  const context = useContext(CartContext);
+    var sp = context.listSanPham.find(e=>e.idSP===props.match.params.slug);
+    console.log(sp);
+   
+  function  addQualities(e) {
+    e.preventDefault();
+    context.addQuality(sp);
+}
+function  addGiamQualities(e) {
+  e.preventDefault();
+    context.addGiamQuality(sp);
+}
+  function addCart(e){
+    context.addCart(sp);
+    e.preventDefault();
+    
+
+  }
     return (
         <div>
         {/* BREADCRUMB */}
@@ -14,12 +65,12 @@ function ChiTietSanPham(){
         </div>
         {/* CONTENT */}
         <div className="content">
-          <div className="content_main container">
+          <div className="content_main_alo container">
             <div className="row justify-content-between">
-              <div className="content_main-left col-xl-5 col-lg-5 col-sm-12">
+              <div className="content_main_alo-left col-xl-5 col-lg-5 col-sm-12">
                 <div className="row">
                   <div className="big-pic">
-                    <img className="big-pic-active" src="./images/content/product_detail/detail1.jpg" alt="" width="100%" />
+                    <img className="big-pic-active" src={`../images/content/product/list-product/${sp.anh}`}  alt="" width="100%" />
                     <img src="./images/content/product_detail/detail2.jpg" alt="" width="100%" />
                     <img src="./images/content/product_detail/detail3.jpg" alt="" width="100%" />
                     <img src="./images/content/product_detail/detail4.jpg" alt="" width="100%" />
@@ -32,17 +83,12 @@ function ChiTietSanPham(){
                   </div>
                 </div>
               </div>
-              <div className="content_main-right col-xl-6 col-lg-6 col-sm-12 pr-0">
-                <form method="post">
-                  <h1 className="title-product">Samsung Gear Fit</h1>
-                  <p className="price-product">4.990.000₫</p>
+              <div className="content_main_alo-right col-xl-6 col-lg-6 col-sm-12 pr-0">
+                <form >
+                  <h1 className="title-product">{sp.tenSP}</h1>
+                  <p className="price-product">{sp.gia.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                   <p className="des-product">
-                    Theo dõi giấc ngủ, Đo nhịp tim, Tính lượng Calories tiêu thụ, 
-                    Đếm số bước chân, Tính quãng đường chạy, 
-                    Chế độ luyện tập, Nghe nhạc với tai nghe Bluetooth, 
-                    Màn hình luôn hiển thị, Gọi điện trên đồng hồ, Từ chối cuộc gọi, 
-                    Dự báo thời tiết, La bàn, Thay mặt đồng hồ, Nhận cuộc gọi, 
-                    Tìm điện thoại
+                    {sp.chiTietSP}
                   </p>
                   <div className="option-size">
                     <h4>Kích Thước:</h4>
@@ -69,16 +115,14 @@ function ChiTietSanPham(){
                   <div className="option-quantity">
                     <h4>Số Lượng</h4>
                     <div className="quantity">
-                      <button type="button" onclick="if (document.getElementById('quantity').value > 1 ) {
-                                                document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1 }">
+                      <button type="button" onClick = {addGiamQualities}>
                         <i className="fas fa-minus-circle" />
                       </button>
-                      <input type="number" name="quantity" id="quantity" defaultValue={1} />
-                      <button type="button" onclick="if (document.getElementById('quantity').value < 100 ) {
-                                                document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1 }"><i className="fas fa-plus-circle" /></button>
+                      <input type="number" name="quantity" id="quantity"  value="1"/>
+                      <button type="button" onClick={addQualities}><i className="fas fa-plus-circle" /></button>
                     </div>
                     <div>
-                      <button className="add-to-cart">
+                      <button className="add-to-cart" onClick = {addCart}>
                         <i className="fas fa-shopping-basket" /> Thêm vào giỏ hàng
                       </button>
                       <button className="buy-now">
@@ -97,6 +141,8 @@ function ChiTietSanPham(){
                     </div>
                   </div>
                 </form>
+                
+              
               </div>
             </div>
           </div>
@@ -149,206 +195,37 @@ function ChiTietSanPham(){
               <div className="row">
                 <div className="swiper-container relate-product_list">
                   <div className="swiper-wrapper">
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide relate-product_item">
-                      <div className="item_image">
-                        <img src="./images/content/product_detail/product1.jpg" width="90%" alt="" />
-                        <div className="item_image_mask">
-                          <div className="animation3d">
-                            <div>
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <div>
-                              <i className="fas fa-shopping-basket iconcart" />
-                            </div>
-                          </div>
-                        </div>
-                        <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
-                      </div>
-                      <div className="item_info">
-                        <p className="item_info_name">Ten san pham</p>
-                        <p className="item_info_price">1.000.000₫</p>
-                      </div>
-                    </div>
+                    
+                  {
+                    context.spNoiBat.map((e)=>{
+                      return(
+                            <div className="swiper-slide relate-product_item">
+                                                  <div className="item_image">
+                                                    <img src={`../images/content/product/list-product/${e.anh}`}  width="90%" alt="" />
+                                                    <div className="item_image_mask">
+                                                      <div className="animation3d">
+                                                        <div>
+                                                          <i className="fas fa-search-plus" />
+                                                        </div>
+                                                        <div>
+                                                          <i className="fas fa-shopping-basket iconcart" />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <img src="./images/content/product_detail/option.png" alt="" className="item_image_option" />
+                                                  </div>
+                                                  <div className="item_info">
+                                                    <p className="item_info_name">{e.tenSP}</p>
+                                                    <p className="item_info_price">{e.gia}</p>
+                                                  </div>
+                         </div>
+                    
+
+                      );
+                    })
+                  }
+                  
+                  
                   </div>
                   {/* Add Arrows */}
                   <div className="swiper-button-next relate-product_slide-next">

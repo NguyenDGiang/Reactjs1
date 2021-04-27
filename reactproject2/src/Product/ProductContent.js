@@ -1,14 +1,23 @@
 import { useContext} from 'react';
 import React from "react";
-
+import { useHistory } from "react-router";
 import {CartContext} from '../Contexts/CartProvider';
+import { useState,useEffect } from 'react';
 function ProductContent(props){
     const context = useContext(CartContext);
+  
+    
     function addCart(el){
       
       context.addCart(el);
 
     }
+    let history = useHistory();
+      function chuyenTrang(p){
+        history.push(`/chitietsanpham/${p}`); 
+      }
+      
+    
     return(
       
       
@@ -75,9 +84,9 @@ function ProductContent(props){
                                     </div>
                                     <img src="./images/content/product/list-product/option.png" alt="" className="item_image_option" />
                                 </div>
-                                <div className="item_info">
+                                <div className="item_info"onClick={()=>chuyenTrang(value.idSP)}>
                                     <p className="item_info_name">{value.tenSP}</p>
-                                    <p className="item_info_price">{value.gia}</p>
+                                    <p className="item_info_price">{value.gia.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                                 </div>
                             </div>
                   

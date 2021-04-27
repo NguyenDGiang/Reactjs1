@@ -10,11 +10,7 @@ import SanPhamDanhMuc from '../SanPhamDanhMucs/SanPhamDanhMuc';
 import GioHang from '../GioHang/GioHang';
 import ChiTietSanPham from '../ChiTietSanPham/ChiTietSanPham';
 const routes =[
-    {
-        exact:true,
-        path:"/",
-        main:()=><TrangChu/>
-    },
+    
     {
         exact:false,
         path:"/sanpham",
@@ -57,8 +53,13 @@ const routes =[
     },
     {
         exact:false,
-        path:"/chitietsanpham",
-        main:()=><ChiTietSanPham/>
+        path:"/chitietsanpham/:slug",
+        main:({match})=><ChiTietSanPham match={match}/>
+    },
+    {
+        exact:false,
+        path:"/danhmuc/:slug",
+        main:({match})=><SanPhamDanhMuc match={match}/>
     }
 
 ];

@@ -63,6 +63,10 @@ function Product(props) {
     }
   }
 
+  function sapXep(){
+   
+  }
+
 
   
 
@@ -100,7 +104,7 @@ function Product(props) {
                     </div>
                     <ul className>
                       <li className="menu-item">
-                        <a href="#">Trang chủ</a>
+                      <Link to="/">Trang chủ</Link>
                       </li>
                       <li className="menu-item has-drop-menu">
                         <a href="#">Sản phẩm</a>
@@ -109,13 +113,13 @@ function Product(props) {
                         <ul className="drop-menu menu-drop-1">
                           <li className="menu-item has-drop-menu">
                             <i className="fa fa-angle-right" />
-                            <a href="#">Trang chủ</a>
+                            <Link to="/">Trang chủ</Link>
                             <i className="fa fa-plus btn-show-drop-menu" />
                             <i className="fa fa-minus btn-close-drop-menu" />
                             <ul className="drop-menu menu-drop-2">
                               <li className="menu-item">
                                 <i className="fa fa-angle-right" />
-                                <a href="#">Trang chủ</a>
+                                <Link to="/">Trang chủ</Link>
                               </li>
                               <li className="menu-item">
                                 <i className="fa fa-angle-right" />
@@ -209,170 +213,7 @@ function Product(props) {
                       </li>
                     </ul>
                   </div>
-                  <div className="filter-shape">
-                    <div className="title">
-                      Kiểu dáng
-                    </div>
-                    <ul>
-                      <li>
-                        <input type="checkbox" name id="shapeSmart" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="shapeSmart">
-                          Smart Watch
-                        </label>
-                      </li>
-                    </ul></div>
-                  <div className="filter-color">
-                    <div className="title">
-                      Màu sắc
-                    </div>
-                    <ul>
-                      <li>
-                        <div className="filter-color-yeallow" style={{backgroundColor: '#F1C40F'}} />
-                      </li>
-                      <li>
-                        <div className="filter-color-purple" style={{backgroundColor: '#9B59B6'}} />
-                      </li>
-                      <li>
-                        <div className="filter-color-red" style={{backgroundColor: '#E74C3C'}} />
-                      </li>
-                      <li>
-                        <div className="filter-color-green" style={{backgroundColor: '#2ECC71'}} />
-                      </li>
-                      <li>
-                        <div className="filter-color-pink" style={{backgroundColor: '#FF00CC'}} />
-                      </li>
-                      <li>
-                        <div className="filter-color-orange" style={{backgroundColor: '#E67E22'}} />
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="filter-size">
-                    <div className="title">
-                      Kích thước
-                    </div>
-                    <ul>
-                      <li>
-                        <input type="checkbox" name id="size30mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size30mm">
-                          30mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size30mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size30mm">
-                          30mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size32mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size32mm">
-                          32mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size34mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size34mm">
-                          34mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size36mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size36mm">
-                          36mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size38mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size38mm">
-                          38mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size40mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size40mm">
-                          40mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size42mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size42mm">
-                          42mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size44mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size44mm">
-                          44mm
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="size46mm" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="size46mm">
-                          46mm
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="filter-price">
-                    <div className="title">
-                      Giá sản phẩm
-                    </div>
-                    <ul>
-                      <li>
-                        <input type="checkbox" name id="priceUnder100" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceUnder100">
-                          Giá dưới 100.000
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="priceUnder200" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceUnder200">
-                          100.000 - 200.000 
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="priceUnder300" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceUnder300">
-                          200.000 - 300.000
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="priceUnder500" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceUnder500">
-                          300.000 - 500.000
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="priceUnder1m" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceUnder1m">
-                          500.000 - 1.000.000
-                        </label>
-                      </li>
-                      <li>
-                        <input type="checkbox" name id="priceOver1m" />
-                        <div className="fake-checkbox" />
-                        <label htmlFor="priceOver1m">
-                          Giá trên 1.000.000
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
+                  
                 </div>
                 {/* product content*/}
                 <ProductContent sanPham = {currentPost}/>

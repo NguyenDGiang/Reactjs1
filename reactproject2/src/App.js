@@ -6,7 +6,6 @@ import './Sass/header.scss';
 import './Sass/nav-bar.scss';
 import './Css/bootstrap.css';
 import './Sass/login.scss';
-import './Sass/chitiet.scss';
 import './Sass/index.scss';
 import Header from './Components/Header';
 import NavBar from './Components/NavBar';
@@ -24,32 +23,19 @@ import { useState } from 'react/cjs/react.development';
 import {CartProvider} from './Contexts/CartProvider';
 import ListSanPhamMoi from './TrangChu/ListSanPhamMoi';
 import SanPhamDanhMuc from './SanPhamDanhMucs/SanPhamDanhMuc';
-
+import ChiTietSanPham from './ChiTietSanPham/ChiTietSanPham';
+import TrangChu from './TrangChu/TrangChu';
+import { useEffect } from 'react';
 
 function App() {
   const [sanPham,setSanPham]=useState([]);
-  const [cart,setCart] = useState([]);
 
-  function listSP(params) {
-    console.log(params);
-    fetch("https://localhost:44318/api/SanPham/GetDanhMuc/" + params)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          
-          setSanPham(result);
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          
-        }
-      )
-      
-  } 
+  
 
-console.log(sanPham);
+  
+
+  
+  
   return (
     <CartProvider>
     <div className="App">
@@ -63,25 +49,28 @@ console.log(sanPham);
           <a href="#" className="notification-sale_link">Chi tiết</a>
         </div>
         <Router>
-        {/* HEADER */}
-        <Header/>
-        {/* NAV BAR */}
-        
-        <NavBar listSP = {listSP}/>
-        
-        <Switch>
-        {
-          routes.map((e,i)=>{
-            return(<Route sanPham = {sanPham} exact={e.exact} path={e.path}>
-            {e.main}
+            {/* HEADER */}
+            <Header/>
+            {/* NAV BAR */}
             
-        </Route>);
-          })
-        }
-        <Route path="/danhmuc/:slug">
-            <SanPhamDanhMuc sanPham = {sanPham}/>
-          </Route>
-        </Switch>
+            <NavBar />
+            
+            <Switch>
+            {
+              routes.map((e,i)=>{
+                return(<Route sanPham = {sanPham} exact={e.exact} path={e.path}>
+                {e.main}
+                
+            </Route>);
+              })
+            }
+            <Route path="/">
+                <TrangChu />
+              </Route>
+            
+              
+            </Switch>
+            
         </Router>
        
       {/* FOOTER */}

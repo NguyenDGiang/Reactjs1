@@ -69,7 +69,7 @@ function Header(props){
           </div>
           <div className="cart_item_info">
             <a href="#" className="name">{e.tenSP} </a>
-            <p className="price">{e.quality*e.gia}</p>
+            <p className="price">{(e.quality*e.gia).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
             <div className="quantity">
               <button type="button" onClick={()=>addQualities(e)}>
                 +

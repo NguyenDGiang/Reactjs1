@@ -14,6 +14,14 @@ function GioHang(props) {
       context.deleteCart(params);
       
   }
+
+  function  tongTien() {
+    return context.cart.reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue.quality*currentValue.gia;
+    }, 0).toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    
+    
+}
     
     return(
         <div>
@@ -43,7 +51,7 @@ function GioHang(props) {
                   <div className="item_info">
                     <div>
                       <a href="#" className="name">Samsung Gear Pro</a>
-                      <p className="price">{e.gia}</p>
+                      <p className="price">{e.gia.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                     </div>
                   </div>
                   <div className="item_quantity">
@@ -56,7 +64,7 @@ function GioHang(props) {
                     </div>
                   </div>
                   <div className="item_total-price">
-                    <p className="price">{e.quality*e.gia}₫</p>
+                    <p className="price">{(e.quality*e.gia).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                   </div>
                   <div className="item_cancel" onClick={()=>deleteCart(e)}>
                     <i className="fa fa-times" />
@@ -70,7 +78,10 @@ function GioHang(props) {
             </div>
           </div>
         </div>
+      <div className="total" font-size= "24px"
+    font-weight="bold">Tổng TIỀN :{tongTien()}</div>
       </div>
+      
     );
 }
 

@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react';
 import ListSanPhamMoi from './ListSanPhamMoi';
 
-function SanPhamMoi(){
+function SanPhamMoi(props){
     const [sanPham,setSanPham] = useState([]);
     
     useEffect(() => {
@@ -24,7 +24,7 @@ function SanPhamMoi(){
         
               
                 
-                <ListSanPhamMoi sanPham ={sanPham}/>
+                <ListSanPhamMoi listSPNsx={props.listSPNsx} sanPham ={sanPham} />
               
               
             

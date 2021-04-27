@@ -12,7 +12,11 @@ html {
     0%{transform:perspective(200px) rotate3d(0, 1, 0, -90deg) translateX(-100%)}
     100%{transform:perspective(200px) rotate3d(0, 1, 0, 0deg) translateX(0px)}
 }
-
+form{
+    p,div,h1{
+        text-align: left;
+    }
+}
 .mask {
     background-color: rgba(0,0,0,0.25);
     position: fixed;
@@ -54,7 +58,7 @@ html {
 }
 
 .content {
-    &_main {
+    &_main_alo {
         &-left {
             .big-pic {
                 width: 80%;

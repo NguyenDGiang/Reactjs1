@@ -52,13 +52,12 @@ SwiperCore.use([Navigation, Pagination]);
           nextEl: '.new-product_slide-next',
           prevEl: '.new-product_slide-prev',
         },
-      });
-      
+    });
       })
       let history = useHistory();
-      function chuyenTrang(){
-        history.push("/chitietsanpham"); 
-
+      function chuyenTrang(p){
+        history.push(`/chitietsanpham/${p}`); 
+        
       }
  
     return(
@@ -67,11 +66,11 @@ SwiperCore.use([Navigation, Pagination]);
         {
             props.sanPham.map((e,i)=>{
                 return(
-                    <div className="swiper-slide new-product_item" onClick={chuyenTrang}>
+                    <div className="swiper-slide new-product_item" >
                   <div className="item_image">
-                    <img src={`./images/content/index/new-product/${e.anh}`} width="90%" alt="" />
+                    <img src={`../images/content/product/list-product/${e.anh}`} width="90%" alt="" />
                     <div className="item_image_mask">
-                      <div className="animation3d">
+                      <div className="animation3d" >
                         <div>
                           <i className="fas fa-search-plus" />
                         </div>
@@ -82,9 +81,9 @@ SwiperCore.use([Navigation, Pagination]);
                     </div>
                     <img src="./images/content/index/new-product/option.png" alt="" className="item_image_option" />
                   </div>
-                  <div className="item_info">
+                  <div className="item_info" onClick={()=>chuyenTrang(e.idSP)}>
                     <p className="item_info_name">{e.tenSP}</p>
-                    <p className="item_info_price">{e.gia}</p>
+                    <p className="item_info_price">{e.gia.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                   </div>
                 </div>
                 );

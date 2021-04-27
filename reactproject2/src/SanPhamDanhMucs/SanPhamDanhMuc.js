@@ -3,6 +3,8 @@ import Header from '../Components/Header';
 import NavBar from '../Components/NavBar';
 import Pagination from '../Product/Pagination';
 import ProductContent from '../Product/ProductContent';
+import { useContext} from 'react';
+import {CartContext} from '../Contexts/CartProvider';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -14,50 +16,10 @@ import {
 import SanPhamDanhMucContent from './SanPhamDanhMucContent';
 
 function SanPhamDanhMuc(props) {
-  
-  const [currentPage,setCurrentPage]=useState(1);
-  const [postPerPage,setPostPerPage] = useState(5);
-  const [activePage,setActivePage] = useState(1);
-  let { slug } = useParams();
-  
-   
-
-  function paginate(value){
-    setCurrentPage(value);
-    setActivePage(value);
-    
-  }
-  function pageNext(){
-    if(currentPage == Math.ceil(props.sanPham.length/postPerPage)){
-      setActivePage(1);
-     setCurrentPage(1);
-    }
-    else{
-      setActivePage(currentPage+1);
-    setCurrentPage(currentPage+1);
-    }
-    
-  }
-  function pagePrev(){
-    if(currentPage <=1){
-      setActivePage(Math.ceil(props.sanPham.length/postPerPage));
-      setCurrentPage(Math.ceil(props.sanPham.length/postPerPage));
-    }
-    else{
-      setActivePage(currentPage-1);
-    setCurrentPage(currentPage-1);
-    }
-  }
-
-
-  
-
-
-  const indexLast = currentPage*postPerPage;
-  const indexFirst = indexLast - postPerPage;
-  const currentPost = props.sanPham.slice(indexFirst,indexLast);
-  const countPage = Math.ceil(props.sanPham.length/postPerPage);
-
+  const context = useContext(CartContext);
+    var sp = context.listSanPham.filter(e=>e.slug===props.match.params.slug)
+    console.log(sp);
+  console.log(props);
   return (
     <div>
   
@@ -361,8 +323,7 @@ function SanPhamDanhMuc(props) {
                   </div>
                 </div>
                 {/* product content*/}
-                <SanPhamDanhMucContent sanPham = {currentPost}/>
-                <Pagination countPage={countPage} paginate={paginate} activePage={activePage} currentPage={currentPage} pageNext={pageNext} pagePrev={pagePrev}/>
+                <SanPhamDanhMucContent sanPham={sp}/>
                 <div className="ads-last mt-5" style={{display: 'none'}}>
                   <div className="col-sm-6 pl-0">
                     <img src="./images/content/product/ads/banner1.jpg" alt="" width="100%" />

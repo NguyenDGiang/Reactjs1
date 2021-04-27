@@ -25,7 +25,7 @@ function SanPhamNu(){
             <div className="container">
               <div className="row">
                 <h2 className="title">
-                  <span className="big">Đồng hồ cho nam</span>
+                  <span className="big">Đồng hồ cho nữ</span>
                   <span className="mini">
                     Những sản phẩm mới nhất, thông minh nhất đã được Delta Watch cập nhật vào bộ sưu tập
                   </span>

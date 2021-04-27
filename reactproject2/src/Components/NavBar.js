@@ -12,6 +12,7 @@ import { useState,useEffect } from 'react';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 function NavBar(props){
     const [menu,setMenu] = useState([]);
+    const [nsx,setNsx] = useState([]);
     
     useEffect(() => {
         fetch("https://localhost:44318/api/DanhMuc/GetAll")
@@ -27,10 +28,26 @@ function NavBar(props){
               
             }
           )
+
+          fetch("https://localhost:44318/api/NhaSanXuat/GetAll")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              setNsx(result);
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+              
+            }
+          )
+
+
+
       }, [])
-      function  SPCall(params) {
-          props.listSP(params);
-      }
+
+      
     return (
 
         <div className="nav-bar">
@@ -63,7 +80,7 @@ function NavBar(props){
                                     {
                                                 e.menuSub.map(value => <li>
                                         <i className="fa fa-angle-right" /> 
-                                        <Link to={`/danhmuc/${value.slug}`} title="Đồng hồ Philips" onClick ={()=>SPCall(value.slug)}>
+                                        <Link to={`/danhmuc/${value.slug}`} title="Đồng hồ Philips" >
                                             {value.tenLoaiSP}
                                         </Link> 
                                     </li>)
@@ -87,22 +104,18 @@ function NavBar(props){
                                 
                             </OldSchoolMenuLink>
                             <ul className="dropdown-menu">
-                                <li>
-                                    <a href="#" title="Apple Watch">Apple Watch </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Xiaomi Watch">Xiaomi Watch </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Huawei Watch">Huawei Watch</a>
-                                    <i className="fa fa-angle-right" /> 
-                                    <ul className="sub-menu-2">
-                                        <li><a href="#" title="Đồng hồ sức khỏe Mi">Đồng hồ sức khỏe Mi</a></li>
-                                    </ul>               
-                                </li>
-                                <li>
-                                    <a href="#" title="Phụ kiện nổi bật">Phụ kiện nổi bật </a> 
-                                </li>
+
+                                {
+                                    nsx.map((e)=>{
+                                        return (
+                                        <li>
+                                            <Link to={`/nhasanxuat/${e.slug}`} title="Apple Watch">{e.tenNSX}</Link>
+                                        </li>
+                                        );
+                                    })
+                                }
+                                
+                               
                             </ul>
                         </li>
                         <li>
